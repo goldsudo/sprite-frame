@@ -1,0 +1,29 @@
+@charset "UTF-8";
+.bh-s-list-item-img {
+    width: 3.6rem;
+    height: 3.6rem
+}
+
+.bh-s-list-item-img-right {
+    width: 7rem;
+    height: 5.4rem
+}
+
+.bh-s-list-item-title {
+    font-size: 1.5rem
+}
+
+.bh-s-list-item-container {
+    position: relative;
+    width: 100%;
+    padding-right: 1.2rem
+}
+
+.bh-s-list-item-left {
+    float: left;
+    width: calc(100% - 7rem)
+}
+
+.bh-s-list-item-right {
+    float: right
+}

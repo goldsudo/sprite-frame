@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <!-- 用来禁止浏览器缓存，使得每次请求test.html都从服务器下载最新版本 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- 标识html使用UTF-8编码 -->
+    <meta charset="utf-8">
+    <!-- 让viewport的宽度等于物理设备上的真实分辨率，不允许用户缩放 -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <script src="public/util/computeRootSize.min.js"></script>
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/bh.min.css">
+    <link rel="stylesheet" href="public/css/bh-scenes.min.css">
+
+    <!-- 引入require -->
+    <script src="lib/require.js"></script>
+    <script src="route.js"></script>
+    <script src="pubConfig.js"></script>
+    <script src="main.js"></script>
+
+</head>
+
+<body>
+    <br>
+    <div id="app">
+        <!-- 路由出口 -->
+        <!-- 路由匹配到的组件将渲染在这里 -->
+        <div class="main__content">
+            <router-view></router-view>
+        </div>
+    </div>
+</body>
+
+</html>
