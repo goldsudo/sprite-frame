@@ -205,7 +205,7 @@
                     vueRouteName: "two"
                 }];
                 window.REQUIRE_MODULES_ARR.pageModules = mock;
-                window.MOBILE_BUTTONAUTH_LIST = ['authButton'];
+                window.MOBILE_BUTTONAUTH_LIST = ['test'];
                 dfd.resolve();
                 // MOB_UTIL.doPost({
                 //     url: WIS_CONFIG.ROOT_PATH + '/sys/swpubapp/MobileCommon/getMenuInfo.do',
@@ -555,7 +555,7 @@
         //删除所有无权限的dom
         tplIds.forEach(function(id, index) {
             if (window.MOBILE_BUTTONAUTH_LIST.indexOf(id) < 0) {
-                var regExp = new RegExp('<[^/].*(auth.*?auth-id=[\'|\"]{1}' + id + '[\'|\"]{1}).*>[\\s\\S]*?</.*auth.*>', 'gm');
+                var regExp = new RegExp('<[^/].*(auth.*?auth-id=[\'|\"]{1}' + id + '{1}[\'|\"]{1}).*>[\\s\\S]*?</.*(auth)?.*>', 'gm')
                 tpl = tpl.replace(regExp, "");
             }
         });

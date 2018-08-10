@@ -73,12 +73,6 @@ body.preventScroll {}
     color: #fff!important;
 }
 
-.mint-cell-text {
-    color: #000;
-    font-size: 1.6rem;
-    font-weight: 400;
-}
-
 .cellcenter {
     font-size: 1.4rem;
 }
