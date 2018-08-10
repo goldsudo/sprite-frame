@@ -555,7 +555,7 @@
         //删除所有无权限的dom
         tplIds.forEach(function(id, index) {
             if (window.MOBILE_BUTTONAUTH_LIST.indexOf(id) < 0) {
-                var regExp = new RegExp('<[^/].*(auth.*?auth-id=[\'|\"]{1}' + id + '{1}[\'|\"]{1}).*>[\\s\\S]*?</.*(auth)?.*>', 'gm')
+                var regExp = new RegExp('<[^/].*(auth.*?auth-id=[\'|\"]{1}' + id + '{1}[\'|\"]{1}).*>[^<]*?</.*(auth)?.*>', 'gm')
                 tpl = tpl.replace(regExp, "");
             }
         });
