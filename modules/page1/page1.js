@@ -22,15 +22,22 @@ define(function(require, exports, module) {
                     this.showPage12();
                 }
             },
+            mounted: function() {
+                console.log("***jqueryTest***:" + $('#page1').data('test'));
+            },
             methods: {
                 init: function() {
                     console.log(this.name);
                 },
                 showPage11: function() {
-                    this.$router.push({ name: 'page1_1' });
+                    this.$router.push({
+                        name: 'page1_1'
+                    });
                 },
                 showPage12: function() {
-                    this.$router.push({ name: 'page1_2' });
+                    this.$router.push({
+                        name: 'page1_2'
+                    });
                 },
                 backIndex: function() {
                     this.$router.push('/');

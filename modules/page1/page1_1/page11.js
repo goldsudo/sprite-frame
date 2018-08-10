@@ -14,12 +14,11 @@ define(function(require, exports, module) {
             },
             created: function() {
                 this.title = this.$route.params.title;
-                this.init();
+            },
+            mounted: function() {
+                $('#page1').data('test', 'jswang');
             },
             methods: {
-                init: function() {
-                    console.log("***jqueryTest***:" + $('#page1').data('test'));
-                },
                 showPage2: function() {
                     var param = {
                         from: "1",
@@ -27,10 +26,15 @@ define(function(require, exports, module) {
                         phone: this.phone,
                         idCard: this.idCard
                     };
-                    this.$router.push({ name: 'two', params: param });
+                    this.$router.push({
+                        name: 'two',
+                        params: param
+                    });
                 },
                 showpage1_1_1: function() {
-                    this.$router.push({ name: 'page1_1_1' });
+                    this.$router.push({
+                        name: 'page1_1_1'
+                    });
                 }
             }
         }
