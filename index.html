@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <!-- 用来禁止浏览器缓存，使得每次请求test.html都从服务器下载最新版本 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -9,19 +8,15 @@
     <meta charset="utf-8">
     <!-- 让viewport的宽度等于物理设备上的真实分辨率，不允许用户缩放 -->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
-    <link rel="stylesheet" href="public/css/style.css">
-
-    <!-- 引入require -->
+    <!-- 在引入sprite框架前引入require -->
     <script src="lib/require.js"></script>
+    <!-- sprite框架 -->
     <script src="sprite/sprite.js"></script>
-   <!--  <script src="pubConfig.js"></script>
-    <script src="main.js"></script> -->
-
+    <!-- 项目css文件 -->
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
-    <br>
     <div id="app">
         <!-- 路由出口 -->
         <!-- 路由匹配到的组件将渲染在这里 -->
