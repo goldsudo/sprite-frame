@@ -1,0 +1,2 @@
+# spriteAppDemo
+基于sprite框架开发的纯前端demo应用
