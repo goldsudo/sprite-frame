@@ -12,8 +12,9 @@
             deferred: 'lib/zepto.deferred',
             callbacks: 'lib/zepto.callbacks',
             axios: 'lib/axios',
+            spriteComponent:'sprite/components',
             // selectRoleIndex: '../../swpubapp/public/mob/component/selectrole/selectrole',
-            // home: '../../swpubapp/public/mob/component/home/home',
+            home:'sprite/components/home/home',
             // publicVueComponent: '../../swpubapp/public/mob/component',
         },
         shim: {
@@ -57,7 +58,7 @@
      * AUTH_DOMS: 有权查看的dom
      * NEED_SELECTROLE: 是否需要选择角色
      */
-    var SPRITE_LOCAL = {
+    window.SPRITE_LOCAL = {
         DEFAULT_COMPONENTS: default_component_arr,
         AUTH_PAGES: [],
         AUTH_DOMS: [],

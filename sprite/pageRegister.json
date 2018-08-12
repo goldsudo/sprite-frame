@@ -1,8 +1,16 @@
 {
 	"pages": [{
-		"id": "home",
+		"id": "home1",
 		"location": "modules/page0/page0",
-		"isIndex": "true"
+		"isIndex": "true",
+		"indexName":"首页1",
+		"indexIcon":"public/images/test.jpg"
+	}, {
+		"id": "home2",
+		"location": "modules/page3/page3",
+		"isIndex": "true",
+		"indexName":"首页2",
+		"indexIcon":"public/images/test.jpg"
 	}, {
 		"id": "one",
 		"location": "modules/page1/page1",
@@ -21,7 +29,5 @@
 		"id": "two",
 		"location": "modules/page2/page2"
 	}],
-	"student": [],
-	"teacher": [],
 	"doms": ["test"]
 }

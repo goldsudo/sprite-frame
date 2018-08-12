@@ -10,10 +10,10 @@
     </div>
     <mt-tabbar v-model="selected" fixed>
         <mt-tab-item id="1" @click.native="showPage11">
-            <img slot="icon" src="./././public/images/test.jpg"> 子菜单1
+            <img slot="icon" src="public/images/test.jpg"> 子菜单1
         </mt-tab-item>
         <mt-tab-item id="2" @click.native="showPage12">
-            <img slot="icon" src="./././public/images/test.jpg"> 子菜单2
+            <img slot="icon" src="public/images/test.jpg"> 子菜单2
         </mt-tab-item>
     </mt-tabbar>
 </div>
