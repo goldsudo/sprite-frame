@@ -1,0 +1,37 @@
+{
+	"pages": [{
+		"id": "zero",
+		"vueJsPath": "modules/page0/page0",
+		"vueRouteName": "zero",
+		"isIndex": "true",
+		"authId": "teacher"
+	}, {
+		"id": "one",
+		"vueJsPath": "modules/page1/page1",
+		"vueRouteName": "one",
+		"childrenIds": ["page11", "page12"],
+		"authId": "teacher"
+	}, {
+		"id": "page11",
+		"vueJsPath": "modules/page1/page11/page11",
+		"vueRouteName": "page11",
+		"childrenIds": ["page111"],
+		"authId": "teacher"
+	}, {
+		"id": "page12",
+		"vueJsPath": "modules/page1/page12/page12",
+		"vueRouteName": "page12",
+		"authId": "teacher"
+	}, {
+		"id": "page111",
+		"vueJsPath": "modules/page1/page11/page111/page111",
+		"vueRouteName": "page111",
+		"authId": "teacher"
+	}, {
+		"id": "two",
+		"vueJsPath": "modules/page2/page2",
+		"vueRouteName": "two",
+		"authId": "teacher"
+	}],
+	"doms": ["test"]
+}

@@ -52,14 +52,16 @@
 
     /**
      * 用于保存sprite初始化应用所需的全局对象
-     * DEFAULT_COMPONENTS：公共组件
-     * AUTH_PAGES：有权访问的页面
+     * DEFAULT_COMPONENTS: 公共组件
+     * AUTH_PAGES: 有权访问的页面
      * AUTH_DOMS: 有权查看的dom
+     * NEED_SELECTROLE: 是否需要选择角色
      */
     var SPRITE_LOCAL = {
         DEFAULT_COMPONENTS: default_component_arr,
         AUTH_PAGES: [],
-        AUTH_DOMS: []
+        AUTH_DOMS: [],
+        NEED_SELECTROLE: false
     };
 
     //配置require
@@ -78,16 +80,17 @@
         Vue.use(VueRouter);
         //饿了么移动端组件mint-ui
         Vue.use(mintUI);
+
         require(["spriteUtil"], function(spriteUtil) {
             //获取角色配置相关参数 --> 获取用户授权功能 --> 初始化应用
-            spriteUtil.getSelRoleConfig().then(spriteUtil.getAuthConfig).then(spriteUtil.initApp);
+            spriteUtil.checkNeedSelectRole().then(spriteUtil.getAppConfig).then(spriteUtil.initApp);
         });
 
 
-        /*  //ids认证
+        /*  //ids认证S
           if (userId != null && userId != undefined) {
               //获取角色配置相关参数 --> 获取用户授权功能 --> 初始化应用
-              spriteUtil.getSelRoleConfig().then(spriteUtil.getAuthConfig).then(spriteUtil.initApp);
+              spriteUtil.checkNeedSelectRole().then(spriteUtil.getAppConfig).then(spriteUtil.initApp);
           }
           //游客
           else {
@@ -122,7 +125,7 @@
                 //将页面注册到全局对象中
                 SPRITE_LOCAL.AUTH_PAGES = window.VISITOR_CONFIG.PAGES;
                 //游客模式无需选择角色
-                window.IS_NEED_SELECTROLE = "0";
+                SPRITE_LOCAL.NEED_SELECTROLE = false;
                 requireAndInit();
             },
             /**
@@ -144,17 +147,16 @@
              * 如果用户有且只有一个角色，直接渲染该角色有权限的页面，否则进入角色选择页面
              * IS_NEED_SELECTROLE：0代表无需选择角色，直接初始化应用 1代表需要选择角色，跳转角色选择页面
              */
-            getSelRoleConfig: function() {
+            checkNeedSelectRole: function() {
                 var dfd = $.Deferred();
-                window.IS_NEED_SELECTROLE = "0";
                 // MOB_UTIL.doPost({
-                //     url: WIS_CONFIG.ROOT_PATH + '/sys/swpubapp/MobileCommon/getSelRoleConfig.do',
+                //     url: WIS_CONFIG.ROOT_PATH + '/sys/swpubapp/MobileCommon/checkNeedSelectRole.do',
                 //     params: {
                 //         APPID: WIS_CONFIG.APPID,
                 //         APPNAME: WIS_CONFIG.APPNAME
                 //     }
                 // }).done(function(result) {
-                //     window.IS_NEED_SELECTROLE = result.data.IS_NEED_SELECTROLE;
+                //     SPRITE_LOCAL.NEED_SELECTROLE = result.data.IS_NEED_SELECTROLE;
                 //     //无需选择角色
                 //     if (IS_NEED_SELECTROLE === "0") {
                 //         roleId = result.data.DEFAULT_ROLEID;
@@ -165,25 +167,52 @@
                 return dfd;
             },
             /**
-             * 获取用户授权的页面、按钮
+             * 获取应用配置信息
              */
-            getAuthConfig: function(fromSelectRole) {
+            getAppConfig: function(fromSelectRole) {
                 var dfd = $.Deferred();
-                // IS_NEED_SELECTROLE为1，即需要先选择角色
-                if (!fromSelectRole && window.IS_NEED_SELECTROLE == "1") {
+                // 如果需要选择角色则只加载角色选择页
+                if (!fromSelectRole && SPRITE_LOCAL.NEED_SELECTROLE) {
                     SPRITE_LOCAL.AUTH_PAGES = [{
                         vueJsPath: 'selectRoleIndex'
                     }];
                     dfd.resolve();
                 } else {
-                    require(['sprite/mockpages'], function(mock) {
-                        SPRITE_LOCAL.AUTH_PAGES = mock.pages;
-                        SPRITE_LOCAL.AUTH_DOMS = ['test'];
+                    //从mock数据中获取应用页面与dom权限配置
+                    spriteUtil.doGet({
+                        url: "/sprite/pageRegister.json",
+                        params: {
+                            tes1: "val1",
+                            test2: "中文2"
+                        }
+                    }).then(function(res) {
+                        SPRITE_LOCAL.AUTH_PAGES = res.pages;
+                        SPRITE_LOCAL.AUTH_DOMS = res.doms;
                         dfd.resolve();
                     });
-
                 }
                 return dfd;
+            },
+            /** 
+             * 执行get请求
+             */
+            doGet: function(param) {
+                return doHttp({
+                    method: 'get',
+                    params: param.params,
+                    url: param.url
+                });
+            },
+            /**
+             * 执行post请求
+             */
+            doPost: function(param) {
+                return doHttp({
+                    method: 'post',
+                    //axios执行psot需要使用data(而不是params)传参，否则参数将凭借在url尾部与执行get没有区别
+                    data: param.params ? param.params : {},
+                    url: param.url
+                });
             }
         };
 
@@ -237,7 +266,7 @@
             setJsPath(require_page_path, require_component_path);
 
             //需要选择角色
-            var needSelectRole = window.IS_NEED_SELECTROLE == "1" && require_page_path[0] == "selectRoleIndex";
+            var needSelectRole = SPRITE_LOCAL.NEED_SELECTROLE && require_page_path[0] == "selectRoleIndex";
 
             //加载公共组件
             require(require_component_path, function() {
@@ -305,6 +334,7 @@
             });
 
             var hasAuth = checkAuth(routes);
+
             //无权限hash置空
             if (!hasAuth) {
                 location.hash = '#/';
@@ -333,6 +363,7 @@
                 el: '#app',
                 router: router
             });
+
             finishedCallback()
         }
 
@@ -388,7 +419,7 @@
                 if (!page.isChild) {
                     var pageComponent = page.component; //vue组件对象
                     var pageName = page.vueRouteName; //路由跳转名称
-                    var pagePath = page.vueRoute; //路由路径
+                    var pagePath = "/" + page.vueRouteName; //路由路径
                     var isIndex = page.isIndex === "true"; //是否首页
                     var needCache = page.keepAlive === "true"; //是否缓存
 
@@ -452,7 +483,7 @@
                     var childrouteObj = {};
                     childrouteObj.component = child.component;
                     childrouteObj.name = child.vueRouteName;
-                    childrouteObj.path = child.vueRoute.substr(child.vueRoute.indexOf('/') + 1);
+                    childrouteObj.path = child.vueRouteName;
                     childrouteObj.meta = {};
                     childrouteObj.meta.keepAlive = needCache;
                     //递归添加子页面的子页面
@@ -520,6 +551,30 @@
             });
 
             return tpl;
+        }
+
+        /**
+         * axios执行http请求
+         */
+        function doHttp(axiosOption) {
+            var dfd = $.Deferred();
+            mintUI.Indicator.open();
+            axios(axiosOption).then(function(res) {
+                mintUI.Indicator.close();
+                dfd.resolve(res.data || res);
+            }).catch(function(err) {
+                //打印堆栈
+                console.error(err);
+                mintUI.Indicator.close();
+                if (err.response) {
+                    mintUI.MessageBox('网络错误(' + err.response.status + ')', err.message);
+                } else {
+                    err.message = err.message == 'Network Error' ? '网络连接不可用' : err.message;
+                    mintUI.MessageBox('错误', err.message);
+                }
+                dfd.reject(err);
+            });
+            return dfd;
         }
 
         return spriteUtil;
