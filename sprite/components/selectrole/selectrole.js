@@ -12,9 +12,6 @@ define(function(require, exports, module) {
         created: function() {
             this.getRoleList();
         },
-        mounted: function() {
-            this.classObject.height = document.body.clientHeight;
-        },
         methods: {
             /**
              * 查询用户角色

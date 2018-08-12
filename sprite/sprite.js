@@ -15,7 +15,6 @@
             spriteComponent: 'sprite/components',
             home: 'sprite/components/home/home',
             selectrole:'sprite/components/selectrole/selectrole'
-            // selectRoleIndex: '../../swpubapp/public/mob/component/selectrole/selectrole',
             // publicVueComponent: '../../swpubapp/public/mob/component',
         },
         shim: {
@@ -53,7 +52,7 @@
     ];
 
     /**
-     * 用于保存sprite初始化应用所需的全局对象
+     * 用于保存sprite应用初始化所需的全局对象
      * DEFAULT_COMPONENTS: 公共组件
      * AUTH_PAGES: 有权访问的页面
      * AUTH_DOMS: 有权查看的dom
@@ -143,6 +142,11 @@
              */
             checkNeedSelectRole: function() {
                 var dfd = $.Deferred();
+                /**
+                 * 修改NEED_SELECTROLE为true即进入角色选择模式：
+                 * 角色选择模式将以sprite/components/selecrole/roleMapping作为应用初始化的依据
+                 * 修改NEED_SELECTROLE为false则直接以sprite/pageRegister.json中的配置进行应用的初始化
+                 */
                 SPRITE_LOCAL.NEED_SELECTROLE = true;
                 dfd.resolve();
                 return dfd;
@@ -203,6 +207,7 @@
          * 应用初始化完成的默认回调函数
          */
         function defaultCallback() {
+            //关闭loading动画
             mintUI.Indicator.close();
             if (firstInit) {
                 console.log('|---sprite---|  App init finished,have fun!  |---sprite---|');
