@@ -1,2 +1,2 @@
 # spriteAppDemo
-基于sprite框架开发的纯前端demo应用
+基于require.js+vue.js+vue-router.js+mint-ui开发的移动端单页web应用框架
