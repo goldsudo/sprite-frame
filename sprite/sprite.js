@@ -174,7 +174,7 @@
                 // 如果需要选择角色则只加载角色选择页
                 if (!fromSelectRole && SPRITE_LOCAL.NEED_SELECTROLE) {
                     SPRITE_LOCAL.AUTH_PAGES = [{
-                        vueJsPath: 'selectRoleIndex'
+                        location: 'selectRoleIndex'
                     }];
                     dfd.resolve();
                 } else {
@@ -296,7 +296,7 @@
             if (SPRITE_LOCAL.AUTH_PAGES instanceof Array) {
                 //页面模块js路径
                 SPRITE_LOCAL.AUTH_PAGES.forEach(function(pageModule) {
-                    require_page_path.push(pageModule.vueJsPath);
+                    require_page_path.push(pageModule.location);
                 });
             }
             if (SPRITE_LOCAL.DEFAULT_COMPONENTS instanceof Array) {
@@ -396,9 +396,9 @@
             var childrenIdList = [];
             SPRITE_LOCAL.AUTH_PAGES.forEach(function(page, pageIndex) {
                 page.index = pageIndex;
-                page.component = loadPage(page.vueJsPath, page.components);
-                if (page.childrenIds && page.childrenIds instanceof Array) {
-                    childrenIdList = childrenIdList.concat(page.childrenIds);
+                page.component = loadPage(page.location, page.components);
+                if (page.children && page.children instanceof Array) {
+                    childrenIdList = childrenIdList.concat(page.children);
                 }
             });
 
@@ -418,8 +418,8 @@
             SPRITE_LOCAL.AUTH_PAGES.forEach(function(page, index) {
                 if (!page.isChild) {
                     var pageComponent = page.component; //vue组件对象
-                    var pageName = page.vueRouteName; //路由跳转名称
-                    var pagePath = "/" + page.vueRouteName; //路由路径
+                    var pageName = page.id; //路由跳转名称
+                    var pagePath = "/" + page.id; //路由路径
                     var isIndex = page.isIndex === "true"; //是否首页
                     var needCache = page.keepAlive === "true"; //是否缓存
 
@@ -434,7 +434,7 @@
 
                     if (isIndex) {
                         //配置为多首页时使用
-                        routeObj.meta.index = page.vueRouteName; //首页标识
+                        routeObj.meta.index = page.id; //首页标识
                         routeObj.meta.indexIcon = page.indexIcon; //首页图表
                         routeObj.meta.indexName = page.indexName; //首页中文名
                         indexPages.push(routeObj);
@@ -475,15 +475,15 @@
          */
         function addChildrenRoute(page, routeObj, childrenObjsMap) {
             //如果当前页面存在子页面，则将子页面加入当前页面的子路由
-            if (page.childrenIds && page.childrenIds instanceof Array) {
+            if (page.children && page.children instanceof Array) {
                 routeObj.children = [];
-                page.childrenIds.map(function(childId, index) {
+                page.children.map(function(childId, index) {
                     var child = childrenObjsMap[childId];
                     var needCache = child.keepAlive === "true";
                     var childrouteObj = {};
                     childrouteObj.component = child.component;
-                    childrouteObj.name = child.vueRouteName;
-                    childrouteObj.path = child.vueRouteName;
+                    childrouteObj.name = child.id;
+                    childrouteObj.path = child.id;
                     childrouteObj.meta = {};
                     childrouteObj.meta.keepAlive = needCache;
                     //递归添加子页面的子页面
