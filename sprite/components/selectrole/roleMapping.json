@@ -1,0 +1,15 @@
+{
+	"roleList": [{
+		"name": "student",
+		"pages": ["home2"],
+		"doms": []
+	}, {
+		"name": "teacher",
+		"pages": ["home1", "one", "page11", "page111", "page12", "two"],
+		"doms": ["test"]
+	}, {
+		"name": "manager",
+		"pages": ["home1", "home2", "one", "page11", "page111", "page12", "two"],
+		"doms": ["test"]
+	}]
+}

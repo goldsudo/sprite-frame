@@ -12,9 +12,10 @@
             deferred: 'lib/zepto.deferred',
             callbacks: 'lib/zepto.callbacks',
             axios: 'lib/axios',
-            spriteComponent:'sprite/components',
+            spriteComponent: 'sprite/components',
+            home: 'sprite/components/home/home',
+            selectrole:'sprite/components/selectrole/selectrole'
             // selectRoleIndex: '../../swpubapp/public/mob/component/selectrole/selectrole',
-            home:'sprite/components/home/home',
             // publicVueComponent: '../../swpubapp/public/mob/component',
         },
         shim: {
@@ -70,12 +71,17 @@
 
     //加载框架所需的库和公共页面
     require(requir_default_arr, function(Vue, VueRouter, mintUI, $, axios, deferred) {
-
         //将各个组件库输出到全局作用域
         window.axios = axios;
         window.Vue = Vue;
         window.VueRouter = VueRouter;
         window.mintUI = mintUI;
+
+        //开启loading动画
+        mintUI.Indicator.open({
+            text: '加载中...',
+            spinnerType: 'snake'
+        });
 
         //vue路由组件
         Vue.use(VueRouter);
@@ -86,19 +92,6 @@
             //获取角色配置相关参数 --> 获取用户授权功能 --> 初始化应用
             spriteUtil.checkNeedSelectRole().then(spriteUtil.getAppConfig).then(spriteUtil.initApp);
         });
-
-
-        /*  //ids认证S
-          if (userId != null && userId != undefined) {
-              //获取角色配置相关参数 --> 获取用户授权功能 --> 初始化应用
-              spriteUtil.checkNeedSelectRole().then(spriteUtil.getAppConfig).then(spriteUtil.initApp);
-          }
-          //游客
-          else {
-              // 初始化应用--游客模式
-              spriteUtil.initApp_visitor();
-          }*/
-
     });
 
     /**
@@ -150,20 +143,7 @@
              */
             checkNeedSelectRole: function() {
                 var dfd = $.Deferred();
-                // MOB_UTIL.doPost({
-                //     url: WIS_CONFIG.ROOT_PATH + '/sys/swpubapp/MobileCommon/checkNeedSelectRole.do',
-                //     params: {
-                //         APPID: WIS_CONFIG.APPID,
-                //         APPNAME: WIS_CONFIG.APPNAME
-                //     }
-                // }).done(function(result) {
-                //     SPRITE_LOCAL.NEED_SELECTROLE = result.data.IS_NEED_SELECTROLE;
-                //     //无需选择角色
-                //     if (IS_NEED_SELECTROLE === "0") {
-                //         roleId = result.data.DEFAULT_ROLEID;
-                //     }
-                //     dfd.resolve();
-                // });
+                SPRITE_LOCAL.NEED_SELECTROLE = true;
                 dfd.resolve();
                 return dfd;
             },
@@ -175,17 +155,16 @@
                 // 如果需要选择角色则只加载角色选择页
                 if (!fromSelectRole && SPRITE_LOCAL.NEED_SELECTROLE) {
                     SPRITE_LOCAL.AUTH_PAGES = [{
-                        location: 'selectRoleIndex'
+                        location: 'selectrole'
                     }];
                     dfd.resolve();
                 } else {
-                    //从mock数据中获取应用页面与dom权限配置
+                    /**
+                     *TODO 该方法需要根据系统业务自行实现
+                     *本例从mock数据中获取应用页面与dom权限配置 
+                     */
                     spriteUtil.doGet({
-                        url: "/sprite/pageRegister.json",
-                        params: {
-                            tes1: "val1",
-                            test2: "中文2"
-                        }
+                        url: "/sprite/pageRegister.json"
                     }).then(function(res) {
                         SPRITE_LOCAL.AUTH_PAGES = res.pages;
                         SPRITE_LOCAL.AUTH_DOMS = res.doms;
@@ -224,6 +203,7 @@
          * 应用初始化完成的默认回调函数
          */
         function defaultCallback() {
+            mintUI.Indicator.close();
             if (firstInit) {
                 console.log('|---sprite---|  App init finished,have fun!  |---sprite---|');
                 firstInit = false;
@@ -267,7 +247,7 @@
             setJsPath(require_page_path, require_component_path);
 
             //需要选择角色
-            var needSelectRole = SPRITE_LOCAL.NEED_SELECTROLE && require_page_path[0] == "selectRoleIndex";
+            var needSelectRole = SPRITE_LOCAL.NEED_SELECTROLE && require_page_path[0] == "selectrole";
 
             //加载公共组件
             require(require_component_path, function() {
@@ -321,7 +301,7 @@
                 routes = [{
                     path: '/',
                     name: 'selectrole',
-                    component: spriteUtil.loadComponent('selectRoleIndex')
+                    component: spriteUtil.loadComponent('selectrole')
                 }];
             }
             //初始化当前用户有权限访问的页面
@@ -361,7 +341,7 @@
 
             //挂载主vue对象
             app = new Vue({
-                el: '#app',
+                el: rootDiv,
                 router: router
             });
 
