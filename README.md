@@ -64,8 +64,11 @@ spriteUtil.doGet({url:...,
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/comp.png?raw=true)
 ### 页面权限与按钮权限
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/auth.png?raw=true)
+#### 进入角色选择模式后：
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/role.png?raw=true)
+#### 选择角色1进行登录，可以看见底部的菜单已经按照权限进行过滤：
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/role1.png?raw=true)
+#### 按钮权限测试界面中，角色1无权限查看的按钮2与按钮3已经被删除：
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/button-auth.png?raw=true)
 ### Tab页的开发技巧
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/tab.png?raw=true)
