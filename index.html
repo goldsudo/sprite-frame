@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <!-- 用来禁止浏览器缓存，使得每次请求test.html都从服务器下载最新版本 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -22,7 +23,10 @@
     </div>
     <div id="app">
         <div class="mainContent">
-            <router-view></router-view>
+            <keep-alive>
+                <router-view v-if="$route.meta.keepAlive"></router-view>
+            </keep-alive>
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
         </div>
     </div>
 </body>
