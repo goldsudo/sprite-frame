@@ -5,7 +5,7 @@ sprite是一个轻量级的移动SPA(single page web application，即单页web�
 启动应用需要在本地启动一个服务，本项目是纯前端项目，因此简单的使用node作为服务器。
 1. 安装node，node官方下载地址：https://nodejs.org/en/download/
 2. clone该项目，或者直接下载项目代码到本地
-3. 在本地的当前项目目录，使用shell(windows使用cmd或者PowerSheel)执行命令：
+3. 在本地的当前项目目录，使用shell(windows使用cmd或者PowerShell)执行命令：
 ```
 node ./server.js
 ```
