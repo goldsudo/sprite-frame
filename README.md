@@ -61,6 +61,9 @@ spriteUtil.doGet({url:...,
 
 当sprite应用初始化完成后，会在console中打印庆祝提示，have fun!~
 
+### sprite app目录总览
+打开项目目录中的tree.txt可查看本项目的目录总览
+
 ### 常规页面
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/start.png?raw=true)
 ### 嵌套子页面
