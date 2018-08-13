@@ -10,7 +10,7 @@ sprite是一个轻量级的移动SPA(single page web application，即单页web�
 node ./server.js
 ```
 4. 打开浏览器，输入url: http://127.0.0.1:8080 
-5.如果使用的是chrome浏览器，按下F12打开浏览器的开发者模式，并切换成终端调试模式（其他浏览器请自行搜索如何打开终端调试模式）
+5. 如果使用的是chrome浏览器，按下F12打开浏览器的开发者模式，并切换成终端调试模式（其他浏览器请自行搜索如何打开终端调试模式）
 6. 浏览器展示如下的页面，则代表应用启动成功：
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/home.png?raw=true)
 
