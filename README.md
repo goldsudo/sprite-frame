@@ -56,7 +56,7 @@ spriteUtil.doGet({url:...,
 1. 框架名为什么取sprite呢？
 我养了两只猫，小的那只叫咖啡，而大的那只叫雪碧
 
-2.打开浏览器(快捷键F12)的console
+2. 打开浏览器(快捷键F12)的console
 当sprite应用初始化完成后，会在console中打印庆祝提示，have fun!~
 
 ### 常规页面
