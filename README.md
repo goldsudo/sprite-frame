@@ -35,7 +35,8 @@ sprite提供了很多利于开发者快速进行应用开发的功能：
 3. **支持递归嵌套的子页面：** 和Vue-router支持嵌套子路由一样，sprite也支持嵌套子页面
 4. **灵活的组件模式：** sprite支持配置应用中所有页面都可使用的公共组件，也支持为某些页面配置局部共享的页面组件
 5. **页面权限与按钮权限：**sprite支持为不同用户配置不同的页面权限与按钮权限，仅需简单的配置即可实现
-6. **封装好的http请求方法：** 我在sprite中对axios进行了封装，提供了doGet与doPost两个执行http请求的方法，在你的代码中用如下代码即可调用：
+6. **支持Vue的模板缓存功能：** 在pageRegister.json中为页面配置keepAlive属性，取值范围为"true"或"false"，代表是否缓存该页面
+7. **封装好的http请求方法：** 我在sprite中对axios进行了封装，提供了doGet与doPost两个执行http请求的方法，在你的代码中用如下代码即可调用：
 ```
 var spriteUtil = require("spriteUtil");
 spriteUtil.doGet({url:...,
