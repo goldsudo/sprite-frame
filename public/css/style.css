@@ -12,12 +12,11 @@ body {
     box-sizing: border-box;
 }
 
-body .main__content {
+body .mainContent {
     display: flex;
     display: -webkit-flex;
     flex-flow: column;
     -webkit-flex-flow: column;
-    margin-top: 45px;
 }
 
 body .main {

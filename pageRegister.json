@@ -1,0 +1,61 @@
+{
+	"pages": [{
+		"id": "welcome",
+		"location": "modules/welcome/welcome",
+		"isIndex": "true",
+		"indexName": "欢迎",
+		"indexIcon": "public/images/goldsudo.jpg"
+	},{
+		"id": "pagedemo",
+		"location": "modules/pagedemo/page",
+		"isIndex": "true",
+		"indexName": "入门",
+		"indexIcon": "public/images/demo.png"
+	}, {
+		"id": "parent",
+		"location": "modules/childrendemo/parent",
+		"children": ["children1", "children2"],
+		"isIndex": "true",
+		"indexName": "嵌套",
+		"indexIcon": "public/images/qiantao.png"
+	}, {
+		"id": "children1",
+		"location": "modules/childrendemo/children/children1",
+		"children": ["children1_1"]
+	}, {
+		"id": "children2",
+		"location": "modules/childrendemo/children/children2"
+	}, {
+		"id": "children1_1",
+		"location": "modules/childrendemo/children/children1_1/children1_1"
+	}, {
+		"id": "tab1",
+		"location": "modules/tabdemo/tab1/tab1"
+	}, {
+		"id": "tab2",
+		"location": "modules/tabdemo/tab2/tab2"
+	}, {
+		"id": "compdemo",
+		"location": "modules/compdemo/compdemo",
+		"isIndex": "true",
+		"indexName": "组件",
+		"indexIcon": "public/images/comp.png",
+		"components": [{
+			"location": "modules/components/demo/demo",
+			"name": "pageDemo"
+		}]
+	}, {
+		"id": "authdemo",
+		"location": "modules/authdemo/authdemo",
+		"isIndex": "true",
+		"indexName": "权限",
+		"indexIcon": "public/images/auth.png"
+	}, {
+		"id": "tabmain",
+		"location": "modules/tabdemo/tabmain",
+		"children": ["tab1", "tab2"],
+		"isIndex": "true",
+		"indexName": "Tab页",
+		"indexIcon": "public/images/tab.png"
+	}]
+}

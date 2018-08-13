@@ -1,0 +1,20 @@
+#sprite-page-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#sprite-page-demo .description {
+    margin: 0 16px 8px 16px;
+}
+
+#sprite-page-demo .description span{
+	display: block;
+}
+
+#sprite-page-demo .description .comment{
+    margin-top: 8px;
+    color: #9e9e9e;
+    font-size: 14px;
+}

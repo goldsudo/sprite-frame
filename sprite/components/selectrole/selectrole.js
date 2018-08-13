@@ -28,7 +28,7 @@ define(function(require, exports, module) {
              */
             gotoTargetMenu: function(role) {
                 spriteUtil.doGet({
-                    url: "/sprite/pageRegister.json"
+                    url: "pageRegister.json"
                 }).then(function(res) {
                     this.pageFilter(res.pages, role.pages);
                     SPRITE_LOCAL.AUTH_PAGES = res.pages;
@@ -39,7 +39,13 @@ define(function(require, exports, module) {
                     });
                 }.bind(this));
             },
+            /**
+             * 页面权限过滤
+             */
             pageFilter: function(allPages, rolePages) {
+                if (rolePages == "all") {
+                    return;
+                }
                 var i = allPages.length;
                 while (i--) {
                     if (rolePages.indexOf(allPages[i].id) < 0) {

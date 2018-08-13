@@ -1,0 +1,36 @@
+#auth-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#auth-demo .description {
+    margin: 0 16px 8px 16px;
+}
+
+#auth-demo .description span {
+    display: block;
+}
+
+#auth-demo .comment {
+    display: block;
+    margin-top: 8px;
+    color: #9e9e9e;
+    font-size: 14px;
+}
+
+#auth-demo .buttonList {
+    margin: 0 16px 0 16px;
+}
+
+#auth-demo .roleButton {
+    margin: 20px 20px 20px 0;
+}
+
+#auth-demo .tip {
+    display: block;
+    margin: 0 16px 0 16px;
+    color: #9e9e9e;
+    font-size: 14px;
+}

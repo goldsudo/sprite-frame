@@ -1,15 +1,15 @@
 {
 	"roleList": [{
-		"name": "student",
-		"pages": ["home2"],
-		"doms": []
+		"name": "角色1(页面:欢迎,入门,权限 按钮1)",
+		"pages": ["welcome", "pagedemo","authdemo"],
+		"doms": ["button1"]
 	}, {
-		"name": "teacher",
-		"pages": ["home1", "one", "page11", "page111", "page12", "two"],
-		"doms": ["test"]
+		"name": "角色2(页面:嵌套,组件,权限 按钮1,2)",
+		"pages": ["pagedemo", "parent", "children1", "children1_1", "children2", "compdemo","authdemo"],
+		"doms": ["button1", "button2"]
 	}, {
-		"name": "manager",
-		"pages": ["home1", "home2", "one", "page11", "page111", "page12", "two"],
-		"doms": ["test"]
+		"name": "角色3(拥有全部页面以及按钮权限)",
+		"pages": "all",
+		"doms": ["button1", "button2", "button3"]
 	}]
 }

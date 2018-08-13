@@ -14,8 +14,7 @@
             axios: 'lib/axios',
             spriteComponent: 'sprite/components',
             home: 'sprite/components/home/home',
-            selectrole:'sprite/components/selectrole/selectrole'
-            // publicVueComponent: '../../swpubapp/public/mob/component',
+            selectrole: 'sprite/components/selectrole/selectrole'
         },
         shim: {
             'MINT': {
@@ -30,26 +29,24 @@
         }
     };
 
+    //配置require
+    require.config(requireConfig);
+
     /**
      * appLoadAsync用于控制app页面的加载方式
      * true: app的所有页面为异步加载，只在使用到时加载
      * false: app的所有页面在应用初始化时一次性加载
      */
-    var appLoadAsync = false;
+    var appLoadAsync = true;
 
     //默认的组件库和公共方法以及公共页面
     var requir_default_arr = ['vue', 'vueRouter', 'MINT', 'zepto', 'axios', 'deferred'];
 
     //注册公共组件
-    var default_component_arr = [
-        // {
-        //     name: 'auditProcess',
-        //     jsPath: 'publicVueComponent/auditprocess/auditProcess'
-        // }, {
-        //     name: 'noneDatas',
-        //     jsPath: 'publicVueComponent/nonedatas/nonedatas'
-        // }
-    ];
+    var default_component_arr = [{
+        name: 'pubDemo',
+        location: 'spriteComponent/pubdemo/pubdemo'
+    }];
 
     /**
      * 用于保存sprite应用初始化所需的全局对象
@@ -64,9 +61,6 @@
         AUTH_DOMS: [],
         NEED_SELECTROLE: false
     };
-
-    //配置require
-    require.config(requireConfig);
 
     //加载框架所需的库和公共页面
     require(requir_default_arr, function(Vue, VueRouter, mintUI, $, axios, deferred) {
@@ -88,7 +82,7 @@
         Vue.use(mintUI);
 
         require(["spriteUtil"], function(spriteUtil) {
-            //获取角色配置相关参数 --> 获取用户授权功能 --> 初始化应用
+            //判断是否需要选择角色 --> 获取用户授权的页面与按钮 --> 初始化应用
             spriteUtil.checkNeedSelectRole().then(spriteUtil.getAppConfig).then(spriteUtil.initApp);
         });
     });
@@ -147,7 +141,7 @@
                  * 角色选择模式将以sprite/components/selecrole/roleMapping作为应用初始化的依据
                  * 修改NEED_SELECTROLE为false则直接以sprite/pageRegister.json中的配置进行应用的初始化
                  */
-                SPRITE_LOCAL.NEED_SELECTROLE = true;
+                SPRITE_LOCAL.NEED_SELECTROLE = false;
                 dfd.resolve();
                 return dfd;
             },
@@ -168,7 +162,7 @@
                      *本例从mock数据中获取应用页面与dom权限配置 
                      */
                     spriteUtil.doGet({
-                        url: "/sprite/pageRegister.json"
+                        url: "pageRegister.json"
                     }).then(function(res) {
                         SPRITE_LOCAL.AUTH_PAGES = res.pages;
                         SPRITE_LOCAL.AUTH_DOMS = res.doms;
@@ -210,7 +204,7 @@
             //关闭loading动画
             mintUI.Indicator.close();
             if (firstInit) {
-                console.log('|---sprite---|  App init finished,have fun!  |---sprite---|');
+                console.log('|---sprite---|  App init finished,have fun! — — 欢迎访问我的个人博客：www.goldsudo.com  |---sprite---|');
                 firstInit = false;
             }
         }
@@ -258,7 +252,7 @@
             require(require_component_path, function() {
                 //注册公共组件
                 SPRITE_LOCAL.DEFAULT_COMPONENTS.forEach(function(defaultComponent) {
-                    Vue.component(defaultComponent.name, spriteUtil.loadComponent(defaultComponent.jsPath));
+                    Vue.component(defaultComponent.name, spriteUtil.loadComponent(defaultComponent.location));
                 });
                 //异步按需加载
                 if (appLoadAsync) {
@@ -312,6 +306,10 @@
             //初始化当前用户有权限访问的页面
             else {
                 routes = getVueRoute();
+                addCallback(function() {
+                    //应用初始化完成后删除掉选择角色的dom
+                    $('#selectrole').remove();
+                });
             }
 
             //生成VueRouter对象
@@ -446,7 +444,7 @@
                     }
                     if (components && components instanceof Array) {
                         components.forEach(function(component) {
-                            page.components[component.name] = spriteUtil.loadComponent(component.jsPath);
+                            page.components[component.name] = spriteUtil.loadComponent(component.location);
                         });
                     }
                     dfd.resolve(page);
@@ -465,16 +463,18 @@
                 routeObj.children = [];
                 page.children.map(function(childId, index) {
                     var child = childrenObjsMap[childId];
-                    var needCache = child.keepAlive === "true";
-                    var childrouteObj = {};
-                    childrouteObj.component = child.component;
-                    childrouteObj.name = child.id;
-                    childrouteObj.path = child.id;
-                    childrouteObj.meta = {};
-                    childrouteObj.meta.keepAlive = needCache;
-                    //递归添加子页面的子页面
-                    addChildrenRoute(child, childrouteObj, childrenObjsMap);
-                    routeObj.children.push(childrouteObj);
+                    if (child) {
+                        var needCache = child.keepAlive === "true";
+                        var childrouteObj = {};
+                        childrouteObj.component = child.component;
+                        childrouteObj.name = child.id;
+                        childrouteObj.path = child.id;
+                        childrouteObj.meta = {};
+                        childrouteObj.meta.keepAlive = needCache;
+                        //递归添加子页面的子页面
+                        addChildrenRoute(child, childrouteObj, childrenObjsMap);
+                        routeObj.children.push(childrouteObj);
+                    }
                 });
             }
         }
@@ -517,6 +517,10 @@
          * 正则扫描模板文件，实现按钮权限
          */
         function compileTpl(tpl) {
+            //没有开启角色选择模式则不进行按钮权限控制
+            if(!SPRITE_LOCAL.NEED_SELECTROLE){
+                return tpl;
+            }
             //获取tpl中所有权限id
             var tplIds = [];
             var result;
@@ -527,7 +531,6 @@
             if (tplIds.length == 0) {
                 return tpl;
             }
-
             //删除所有无权限的dom
             tplIds.forEach(function(id, index) {
                 if (SPRITE_LOCAL.AUTH_DOMS.indexOf(id) < 0) {
@@ -535,7 +538,6 @@
                     tpl = tpl.replace(regExp, "");
                 }
             });
-
             return tpl;
         }
 
