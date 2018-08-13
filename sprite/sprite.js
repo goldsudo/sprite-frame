@@ -139,9 +139,9 @@
                 /**
                  * 修改NEED_SELECTROLE为true即进入角色选择模式：
                  * 角色选择模式将以sprite/components/selecrole/roleMapping作为应用初始化的依据
-                 * 修改NEED_SELECTROLE为false则直接以sprite/pageRegister.json中的配置进行应用的初始化
+                 * 修改NEED_SELECTROLE为false则直接以pageRegister.json中的配置进行应用的初始化
                  */
-                SPRITE_LOCAL.NEED_SELECTROLE = false;
+                SPRITE_LOCAL.NEED_SELECTROLE = true;
                 dfd.resolve();
                 return dfd;
             },
