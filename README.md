@@ -8,7 +8,8 @@ sprite是一个轻量级的移动SPA(single page web application，即单页web�
 3. 在本地的当前项目目录，使用shell(windows使用cmd或者PowerSheel)执行命令：node ./server.js
 4. 打开浏览器，输入url: http://127.0.0.1:8080 
 5.如果使用的是chrome浏览器，按下F12打开浏览器的开发者模式，并切换成终端调试模式（其他浏览器请自行搜索如何打开终端调试模式）
-5. 浏览器展示如下的页面，则代表应用启动成功：
+6. 浏览器展示如下的页面，则代表应用启动成功：
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/home.png?raw=true)
 
 ## 学习与使用
 如果在本地启动了sprite应用后，可以直接跟着应用中的导航进行学习与使用，也可参考下文的描述：
@@ -18,11 +19,11 @@ sprite是一个轻量级的移动SPA (single page web application，即单页web
 
 #### sprite特性介绍
 sprite是基于require,Vue,Vue-router,zepto,axios,mint-ui等前端框架以及UI库开发的，具备如下特性：
-1. **团队协作：**利用了require的模块加载功能实现了应用的模块化开发
-2. **配置简单：**仅需一个配置文件以及极少的配置项即可完成复杂的功能
-3. **学习门槛低：**sprite应用采用纯ES5语法编写，适合刚入门的前端开发者使用
-4. **易于debug：**由于sprite出于轻量的考虑没有引入打包与压缩等功能，因此debug体验友好
-5. **高效开发：**sprite屏蔽了一些复杂而无趣的工作，如Vue与Vuerouter的初始化、应用加载模式控制、组件加载、权限控制等，从而使得开发者可以专注于业务逻辑的开发
+1. **团队协作：** 利用了require的模块加载功能实现了应用的模块化开发
+2. **配置简单：** 仅需一个配置文件以及极少的配置项即可完成复杂的功能
+3. **学习门槛低：** sprite应用采用纯ES5语法编写，适合刚入门的前端开发者使用
+4. **易于debug：** 由于sprite出于轻量的考虑没有引入打包与压缩等功能，因此debug体验友好
+5. **高效开发：** sprite屏蔽了一些复杂而无趣的工作，如Vue与Vuerouter的初始化、应用加载模式控制、组件加载、权限控制等，从而使得开发者可以专注于业务逻辑的开发
 
 #### sprite功能介绍
 sprite提供了很多利于开发者快速进行应用开发的功能：
@@ -56,7 +57,15 @@ spriteUtil.doGet({url:...,
 当sprite应用初始化完成后，会在console中打印庆祝提示，have fun!~
 
 ### 常规页面
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/start.png?raw=true)
 ### 嵌套子页面
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/children.png?raw=true)
 ### 公共组件与页面组件
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/comp.png?raw=true)
 ### 页面权限与按钮权限
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/auth.png?raw=true)
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/role.png?raw=true)
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/role1.png?raw=true)
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/button-auth.png?raw=true)
 ### Tab页的开发技巧
+![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/tab.png?raw=true)
