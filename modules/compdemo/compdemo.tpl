@@ -10,7 +10,7 @@
             page-demo为页面级组件，可在pageRegister.json文件中为需要使用该组件的页面进行注册，即按需注册，而不是全局注册。
         </li>
         <li style="margin-top:16px;">
-            在pageRegister.json中将compdemo中的components内容删除掉，再回来查看这个页面，将会发先名称为“demo”的组件将无法再正常显示
+            在pageRegister.json中将compdemo中的components内容删除掉，再回来查看这个页面，将会发先名称为“page-demo”的组件将无法再正常工作，这就是页面级按需注册的效果
         </li>
     </ul>
 </div>
