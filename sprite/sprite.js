@@ -143,7 +143,7 @@
             getAppConfig: function() {
                 var dfd = $.Deferred();
                 // 如果需要选择角色则只加载角色选择页
-                if (PRITE_LOCAL.NEED_SELECTROLE) {
+                if (SPRITE_LOCAL.NEED_SELECTROLE) {
                     SPRITE_LOCAL.AUTH_PAGES = [{
                         location: 'selectrole'
                     }];
