@@ -32,13 +32,6 @@
     //配置require
     require.config(requireConfig);
 
-    /**
-     * appLoadAsync用于控制app页面的加载方式
-     * true: app的所有页面为异步加载，只在使用到时加载
-     * false: app的所有页面在应用初始化时一次性加载
-     */
-    var appLoadAsync = true;
-
     //默认的组件库和公共方法以及公共页面
     var requir_default_arr = ['vue', 'vueRouter', 'MINT', 'zepto', 'axios', 'deferred'];
 
@@ -50,12 +43,15 @@
 
     /**
      * 用于保存sprite应用初始化所需的全局对象
+     * APP_LOAD_ASYNC：控制app页面的加载方式 
+     *   APP_LOAD_ASYNC为true: app的所有页面为异步加载，只在使用到时加载,为false: app的所有页面在应用初始化时一次性加载
      * DEFAULT_COMPONENTS: 公共组件
      * AUTH_PAGES: 有权访问的页面
      * AUTH_DOMS: 有权查看的dom
      * NEED_SELECTROLE: 是否需要选择角色
      */
     window.SPRITE_LOCAL = {
+        APP_LOAD_ASYNC: true,
         DEFAULT_COMPONENTS: default_component_arr,
         AUTH_PAGES: [],
         AUTH_DOMS: [],
@@ -131,16 +127,12 @@
             },
             /**
              * 判断是否进入角色选择页
-             * 如果用户有且只有一个角色，直接渲染该角色有权限的页面，否则进入角色选择页面
-             * IS_NEED_SELECTROLE：0代表无需选择角色，直接初始化应用 1代表需要选择角色，跳转角色选择页面
+             * 修改NEED_SELECTROLE为true即进入角色选择模式：
+             * 角色选择模式将以sprite/components/selecrole/roleMapping作为应用初始化的依据
+             * 修改NEED_SELECTROLE为false则直接以pageRegister.json中的配置进行应用的初始化
              */
             checkNeedSelectRole: function() {
                 var dfd = $.Deferred();
-                /**
-                 * 修改NEED_SELECTROLE为true即进入角色选择模式：
-                 * 角色选择模式将以sprite/components/selecrole/roleMapping作为应用初始化的依据
-                 * 修改NEED_SELECTROLE为false则直接以pageRegister.json中的配置进行应用的初始化
-                 */
                 SPRITE_LOCAL.NEED_SELECTROLE = false;
                 dfd.resolve();
                 return dfd;
@@ -157,10 +149,7 @@
                     }];
                     dfd.resolve();
                 } else {
-                    /**
-                     *TODO 该方法需要根据系统业务自行实现
-                     *本例从mock数据中获取应用页面与dom权限配置 
-                     */
+                    ///本例从mock数据中获取应用页面与dom权限配置 
                     spriteUtil.doGet({
                         url: "pageRegister.json"
                     }).then(function(res) {
@@ -255,7 +244,7 @@
                     Vue.component(defaultComponent.name, spriteUtil.loadComponent(defaultComponent.location));
                 });
                 //异步按需加载
-                if (appLoadAsync) {
+                if (SPRITE_LOCAL.APP_LOAD_ASYNC) {
                     var needSDK = true;
                     init(needSDK, needSelectRole);
                 }
@@ -518,7 +507,7 @@
          */
         function compileTpl(tpl) {
             //没有开启角色选择模式则不进行按钮权限控制
-            if(!SPRITE_LOCAL.NEED_SELECTROLE){
+            if (!SPRITE_LOCAL.NEED_SELECTROLE) {
                 return tpl;
             }
             //获取tpl中所有权限id

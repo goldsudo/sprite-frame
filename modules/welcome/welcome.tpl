@@ -54,7 +54,7 @@
                     仅需修改一个变量，即可控制应用的加载模式是一次性加载全部页面，以获得快速的页面切换效果；还是延迟加载页面，以提升应用初始化速度并且为用户节省流量
                 </span>
                 <span class="comment">
-                    注：参见sprite/sprite.js中关于appLoadAsync变量的具体描述
+                    注：参见sprite/sprite.js中关于APP_LOAD_ASYNC变量的具体描述
                 </span>
             </li>
             <li>
