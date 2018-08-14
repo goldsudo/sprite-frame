@@ -44,7 +44,8 @@
     /**
      * 用于保存sprite应用初始化所需的全局对象
      * APP_LOAD_ASYNC：控制app页面的加载方式 
-     *   APP_LOAD_ASYNC为true: app的所有页面为异步加载，只在使用到时加载,为false: app的所有页面在应用初始化时一次性加载
+     * APP_LOAD_ASYNC：[true: app的所有页面为异步加载，只在使用到时加载，
+     *                  false: app的所有页面在应用初始化时一次性加载]
      * DEFAULT_COMPONENTS: 公共组件
      * AUTH_PAGES: 有权访问的页面
      * AUTH_DOMS: 有权查看的dom
@@ -172,11 +173,11 @@
             },
             /**
              * 执行post请求
+             * axios执行psot需要使用data(而不是params)传参，否则参数将凭借在url尾部与执行get没有区别
              */
             doPost: function(param) {
                 return doHttp({
                     method: 'post',
-                    //axios执行psot需要使用data(而不是params)传参，否则参数将凭借在url尾部与执行get没有区别
                     data: param.params ? param.params : {},
                     url: param.url
                 });
@@ -185,7 +186,6 @@
 
         var firstInit = true; //应用首次初始化(需要选角色时存在第二次初始化)
         var callbacks = [defaultCallback]; //回调集合
-
         /**
          * 应用初始化完成的默认回调函数
          */
@@ -197,7 +197,6 @@
                 firstInit = false;
             }
         }
-
         /**
          * 新增回调
          */
@@ -216,7 +215,6 @@
                 }
             }
         }
-
         /**
          * 执行回调
          */
@@ -225,7 +223,6 @@
                 callback();
             });
         }
-
         /** 
          * 加载组件与页面进行初始化
          */
@@ -255,7 +252,6 @@
                 }
             });
         }
-
         /**
          * 设置页面与组件的js文件路径
          */
@@ -273,13 +269,11 @@
                 });
             }
         }
-
         /**
          * 应用初始化
          */
         function init(needSelectRole) {
             var routes = [];
-
             var rootDiv = '#app';
             //初始化角色选择页面
             if (needSelectRole) {
@@ -298,19 +292,15 @@
                     $('#selectrole').remove();
                 });
             }
-
             //生成VueRouter对象
             var router = new VueRouter({
                 routes: routes
             });
-
             var hasAuth = checkAuth(routes);
-
             //无权限hash置空
             if (!hasAuth) {
                 location.hash = '#/';
             }
-
             //路由切换完成后执行的操作
             router.afterEach(function(to, from, next) {
                 //页面离开时，关闭messagebox
@@ -328,16 +318,14 @@
                     }, 0);
                 }
             });
-
             //挂载主vue对象
             app = new Vue({
                 el: rootDiv,
                 router: router
             });
-
-            finishedCallback()
+            //执行应用初始化后的回调
+            finishedCallback();
         }
-
         /**
          * 校验当前hash是否属于用户权限范围内
          */
@@ -383,8 +371,8 @@
                     }
                 });
             });
-
-            var indexPages = []; //首页集合
+            //首页集合
+            var indexPages = []; 
             //把SPRITE_LOCAL.AUTH_PAGES解析为vue的路由数组
             SPRITE_LOCAL.AUTH_PAGES.forEach(function(page, index) {
                 if (!page.isChild) {
@@ -417,7 +405,6 @@
 
             return homePageProcess(routes, indexPages);
         }
-
         /**
          * 加载页面
          */
@@ -440,7 +427,6 @@
                 return dfd;
             };
         }
-
         /**
          * 递归添加子路由
          */
@@ -465,7 +451,6 @@
                 });
             }
         }
-
         /**
          * 处理首页
          */
@@ -499,7 +484,6 @@
             }
             return routes;
         }
-
         /**
          * 正则扫描模板文件，实现按钮权限
          */
@@ -527,7 +511,6 @@
             });
             return tpl;
         }
-
         /**
          * axios执行http请求
          */
