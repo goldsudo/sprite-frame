@@ -140,10 +140,10 @@
             /**
              * 获取应用配置信息
              */
-            getAppConfig: function(fromSelectRole) {
+            getAppConfig: function() {
                 var dfd = $.Deferred();
                 // 如果需要选择角色则只加载角色选择页
-                if (!fromSelectRole && SPRITE_LOCAL.NEED_SELECTROLE) {
+                if (PRITE_LOCAL.NEED_SELECTROLE) {
                     SPRITE_LOCAL.AUTH_PAGES = [{
                         location: 'selectrole'
                     }];
