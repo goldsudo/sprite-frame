@@ -245,14 +245,12 @@
                 });
                 //异步按需加载
                 if (SPRITE_LOCAL.APP_LOAD_ASYNC) {
-                    var needSDK = true;
-                    init(needSDK, needSelectRole);
+                    init(needSelectRole);
                 }
                 //全部加载
                 else {
                     require(require_page_path, function() {
-                        var needSDK = true;
-                        init(needSDK, needSelectRole);
+                        init(needSelectRole);
                     });
                 }
             });
@@ -279,7 +277,7 @@
         /**
          * 应用初始化
          */
-        function init(needSDK, needSelectRole) {
+        function init(needSelectRole) {
             var routes = [];
 
             var rootDiv = '#app';
