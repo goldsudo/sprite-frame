@@ -1,6 +1,14 @@
 # 你好！欢迎使用 sprite
 sprite是一个轻量级的移动SPA(single page web application，即单页web应用)开发框架，你只需学会Vue的相关语法，即可利用sprite快速的开发你的应用。
 
+## sprite框架技术栈以及相关文档地址
+1. RequireJS : https://requirejs.org/
+2. Vue : https://cn.vuejs.org/v2/guide/index.html
+3. Vue-Router : https://router.vuejs.org/zh/
+4. Zepto.js : http://www.css88.com/doc/zeptojs_api/
+5. axois : https://github.com/axios/axios
+6. Mint-Ui : http://mint-ui.github.io/docs/#/zh-cn2
+
 ## 安装与启动
 启动应用需要在本地启动一个服务，本项目是纯前端项目，因此简单的使用node作为服务器。
 1. 安装node，node官方下载地址：https://nodejs.org/en/download/
