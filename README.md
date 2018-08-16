@@ -63,7 +63,115 @@ spriteUtil.doGet({url:...,
 当sprite应用初始化完成后，会在console中打印庆祝提示，have fun!~
 
 ### sprite app目录总览
-打开项目目录中的tree.txt可查看本项目的目录总览
+```
+|   .gitignore
+|   index.html
+|   LICENSE
+|   pageRegister.json
+|   README.md
+|   server.js
+|   tree.md
+|   
++---lib
+|   |   axios.js
+|   |   deferred.js
+|   |   require-css.js
+|   |   require-text.js
+|   |   require.js
+|   |   vue-router.js
+|   |   vue.js
+|   |   zepto.callbacks.js
+|   |   zepto.deferred.js
+|   |   zepto.min.js
+|   |   
+|   \---mint
+|           index.js
+|           style.css
+|           
++---modules
+|   +---authdemo
+|   |       authdemo.css
+|   |       authdemo.js
+|   |       authdemo.tpl
+|   |       
+|   +---childrendemo
+|   |   |   parent.js
+|   |   |   parent.tpl
+|   |   |   
+|   |   \---children
+|   |       |   children.tpl
+|   |       |   children1.js
+|   |       |   children2.js
+|   |       |   
+|   |       \---children1_1
+|   |               children1_1.js
+|   |               children1_1.tpl
+|   |               
+|   +---compdemo
+|   |       compdemo.js
+|   |       compdemo.tpl
+|   |       
+|   +---components
+|   |   \---demo
+|   |           demo.js
+|   |           demo.tpl
+|   |           
+|   +---pagedemo
+|   |       page.css
+|   |       page.js
+|   |       page.tpl
+|   |       
+|   +---tabdemo
+|   |   |   tabmain.js
+|   |   |   tabmain.tpl
+|   |   |   
+|   |   +---tab1
+|   |   |       tab1.js
+|   |   |       tab1.tpl
+|   |   |       
+|   |   \---tab2
+|   |           tab2.js
+|   |           tab2.tpl
+|   |           
+|   \---welcome
+|           welcome.css
+|           welcome.js
+|           welcome.tpl
+|           
++---public
+|   +---css
+|   |       style.css
+|   |       
+|   +---images
+|   |       auth.png
+|   |       comp.png
+|   |       demo.png
+|   |       goldsudo.jpg
+|   |       home.png
+|   |       qiantao.png
+|   |       tab.png
+|   |       
+|   \---util
+|           util.js
+|           
+\---sprite
+    |   sprite.js
+    |   
+    \---components
+        +---home
+        |       home.js
+        |       home.tpl
+        |       
+        +---pubdemo
+        |       pubdemo.js
+        |       pubdemo.tpl
+        |       
+        \---selectrole
+                roleMapping.json
+                selectrole.css
+                selectrole.js
+                selectrole.tpl
+```
 
 ### 常规页面
 ![image](https://github.com/goldsudo/sprite-frame/blob/master/SNAP-SHOT/start.png?raw=true)
