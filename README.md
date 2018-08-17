@@ -61,7 +61,7 @@ spriteUtil.doGet({url:...,
  使用sprite进行页面开发前，你需要具备Vue的基础知识，之后你还需要适应sprite要求的开发规范，详情请参考“入门”菜单，以及对应的代码实现
 
 ####  四、sprite系列博文
-我在我的博客上记录了我实现sprite框架的详细过程，感兴趣的话可以去看看哦：http://goldsudo.com/develop/spriteframe
+我在博客上记录了实现sprite框架的详细过程，感兴趣的话可以去看看哦：http://goldsudo.com/develop/spriteframe
  注：博文中的代码不是最新的，如需阅读源码还请参考本项目的代码
 
 #### 五、sprite彩蛋
