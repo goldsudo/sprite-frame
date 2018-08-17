@@ -117,8 +117,10 @@
              */
             loadComponent: function(path) {
                 return function() {
+                    mintUI.Indicator.open();
                     var dfd = $.Deferred();
                     require([path], function(page) {
+                        mintUI.Indicator.close();
                         var component = page;
                         component.template = compileTpl(component.template);
                         dfd.resolve(component);
