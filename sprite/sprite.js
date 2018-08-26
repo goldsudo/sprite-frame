@@ -229,45 +229,36 @@
          * 加载组件与页面进行初始化
          */
         function requireAndInit() {
-            var require_page_path = []; //页面模块js路径
-            var require_component_path = []; //公共组件js路径
-            setJsPath(require_page_path, require_component_path);
+            //所有页面对应的js路径
+            var require_page_path = []; 
+            setJsPath(require_page_path);
 
             //需要选择角色
             var needSelectRole = SPRITE_LOCAL.NEED_SELECTROLE && require_page_path[0] == "selectrole";
 
-            //加载公共组件
-            require(require_component_path, function() {
-                //注册公共组件
-                SPRITE_LOCAL.DEFAULT_COMPONENTS.forEach(function(defaultComponent) {
-                    Vue.component(defaultComponent.name, spriteUtil.loadComponent(defaultComponent.location));
-                });
-                //异步按需加载
-                if (SPRITE_LOCAL.APP_LOAD_ASYNC) {
-                    init(needSelectRole);
-                }
-                //全部加载
-                else {
-                    require(require_page_path, function() {
-                        init(needSelectRole);
-                    });
-                }
+            //注册公共组件
+            SPRITE_LOCAL.DEFAULT_COMPONENTS.forEach(function(defaultComponent) {
+                Vue.component(defaultComponent.name, spriteUtil.loadComponent(defaultComponent.location));
             });
-        }
-        /**
-         * 设置页面与组件的js文件路径
-         */
-        function setJsPath(require_page_path, require_component_path) {
-            if (SPRITE_LOCAL.AUTH_PAGES instanceof Array) {
-                //页面模块js路径
-                SPRITE_LOCAL.AUTH_PAGES.forEach(function(pageModule) {
-                    require_page_path.push(pageModule.location);
+            //应用页面异步按需加载
+            if (SPRITE_LOCAL.APP_LOAD_ASYNC) {
+                init(needSelectRole);
+            }
+            //应用页面全部加载
+            else {
+                require(require_page_path, function() {
+                    init(needSelectRole);
                 });
             }
-            if (SPRITE_LOCAL.DEFAULT_COMPONENTS instanceof Array) {
-                //公共组件js路径
-                SPRITE_LOCAL.DEFAULT_COMPONENTS.forEach(function(defaultComponent) {
-                    require_component_path.push(defaultComponent.jsPath);
+        }
+        /**
+         * 获取页面与的js文件路径
+         */
+        function setJsPath(require_page_path) {
+            if (SPRITE_LOCAL.AUTH_PAGES instanceof Array) {
+                //遍历所有页面模块
+                SPRITE_LOCAL.AUTH_PAGES.forEach(function(pageModule) {
+                    require_page_path.push(pageModule.location);
                 });
             }
         }
@@ -374,7 +365,7 @@
                 });
             });
             //首页集合
-            var indexPages = []; 
+            var indexPages = [];
             //把SPRITE_LOCAL.AUTH_PAGES解析为vue的路由数组
             SPRITE_LOCAL.AUTH_PAGES.forEach(function(page, index) {
                 if (!page.isChild) {
