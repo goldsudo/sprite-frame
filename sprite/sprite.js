@@ -252,7 +252,7 @@
             }
         }
         /**
-         * 获取页面与的js文件路径
+         * 获取页面的js文件路径
          */
         function setJsPath(require_page_path) {
             if (SPRITE_LOCAL.AUTH_PAGES instanceof Array) {
@@ -387,7 +387,7 @@
                     if (isIndex) {
                         //配置为多首页时使用
                         routeObj.meta.index = page.id; //首页标识
-                        routeObj.meta.indexIcon = page.indexIcon; //首页图表
+                        routeObj.meta.indexIcon = page.indexIcon; //首页图标
                         routeObj.meta.indexName = page.indexName; //首页中文名
                         indexPages.push(routeObj);
                     } else {
