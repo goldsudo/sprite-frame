@@ -12,7 +12,9 @@ define(function(require, exports, module) {
         },
         watch: {
             '$route': function(to, from) {
-                this.homeSelectedTab = this.$route.meta.index;
+                if (this.$route.meta.index) {
+                    this.homeSelectedTab = this.$route.meta.index;
+                }
             }
         },
         methods: {
