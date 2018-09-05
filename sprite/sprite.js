@@ -68,10 +68,7 @@
         window.mintUI = mintUI;
 
         //开启loading动画
-        mintUI.Indicator.open({
-            text: '加载中...',
-            spinnerType: 'snake'
-        });
+        mintUI.Indicator.open();
 
         //vue路由组件
         Vue.use(VueRouter);
@@ -125,7 +122,7 @@
                         component.template = compileTpl(component.template);
                         dfd.resolve(component);
                     });
-                    return dfd;
+                    return dfd.promise();
                 };
             },
             /**
@@ -136,9 +133,9 @@
              */
             checkNeedSelectRole: function() {
                 var dfd = $.Deferred();
-                SPRITE_LOCAL.NEED_SELECTROLE = false;
+                SPRITE_LOCAL.NEED_SELECTROLE = true;
                 dfd.resolve();
-                return dfd;
+                return dfd.promise();
             },
             /**
              * 获取应用配置信息
@@ -161,7 +158,7 @@
                         dfd.resolve();
                     });
                 }
-                return dfd;
+                return dfd.promise();
             },
             /** 
              * 执行get请求
@@ -330,9 +327,7 @@
                 } else {
                     //当前route不包含于hash中，递归检测其子route
                     if (route.children && route.children.length > 0) {
-                        if (checkAuth(route.children)) {
-                            return true;
-                        }
+                        return checkAuth(route.children);
                     }
                 }
                 return false;
@@ -417,7 +412,7 @@
                     dfd.resolve(page);
                 });
 
-                return dfd;
+                return dfd.promise();
             };
         }
         /**
@@ -525,7 +520,7 @@
                 }
                 dfd.reject(err);
             });
-            return dfd;
+            return dfd.promise();
         }
 
         return spriteUtil;
