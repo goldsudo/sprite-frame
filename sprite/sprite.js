@@ -172,7 +172,7 @@
             },
             /**
              * 执行post请求
-             * axios执行psot需要使用data(而不是params)传参，否则参数将凭借在url尾部与执行get没有区别
+             * axios执行psot需要使用data(而不是params)传参，否则参数将拼接在url尾部与执行get没有区别
              */
             doPost: function(param) {
                 return doHttp({
