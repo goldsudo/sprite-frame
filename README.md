@@ -10,7 +10,7 @@ sprite是一个轻量级的移动SPA(single page web application，即单页web�
 6. Mint-Ui : http://mint-ui.github.io/docs/#/zh-cn2
 
 ## 示例
-我已经在vps上部署了本应用，可以直接访问：[sprite应用示例](http://104.245.40.208)<br>
+我已经在vps上部署了本应用，可以直接访问：[sprite应用示例](http://freedom-gsu.monster:8080/)<br>
 
 ## 安装与启动
 启动应用需要在本地启动一个服务，本项目是纯前端项目，因此简单的使用node作为服务器。
